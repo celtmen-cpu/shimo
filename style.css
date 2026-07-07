@@ -1,48 +1,69 @@
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh; /* Utilisation de min-height pour éviter les coupures */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 40px; /* Augmentation de l'espace entre les blocs */
 
-  background: url("https://github.com/celtmen-cpu/shimo/blob/main/1500x500.jpeg?raw=true");
-  background-size: cover;
+  /* Fond rouge avec un léger dégradé pour donner du relief */
+  background: linear-gradient(135deg, #cc0000 0%, #800000 100%);
   font-family: Arial, sans-serif;
 }
 
 .glass {
-  width: 300px;
-  padding: 20px;
+  /* Agrandissement majeur des boîtes */
+  width: 80%;
+  max-width: 800px; 
+  padding: 50px;
 
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* Effet glassmorphic adapté pour le fond rouge */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
   text-align: center;
+  box-sizing: border-box;
 }
 
 h1 {
-  color: red;
+  color: white; /* Changement en blanc */
+  font-size: 4.5rem; /* Titre géant */
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 p {
   color: white;
+  font-size: 1.8rem; /* Texte plus grand */
 }
 
 button {
-  padding: 10px 15px;
+  /* Bouton XXL */
+  padding: 25px 60px;
+  font-size: 2rem;
+  font-weight: bold;
+  
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
 
-  background: rgba(255, 255, 255, 0.25);
-  color: red;
+  /* Inversion des couleurs pour qu'il ressorte : texte rouge sur fond blanc */
+  background: #ffffff;
+  color: #cc0000;
 
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Petit effet interactif au survol du gros bouton */
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
 }
