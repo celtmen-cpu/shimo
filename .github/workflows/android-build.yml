@@ -1,0 +1,58 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main # Déclenche le build à chaque push sur la branche main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupérer le code du dépôt
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # Ajustez selon votre version d'Expo
+          cache: 'npm'
+
+      # 3. Configurer Java (requis pour Android/Gradle)
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17' # Recommandé pour les versions récentes de React Native / Expo
+
+      # 4. Configurer les outils Android (SDK, etc.)
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # 5. Installer les dépendances du projet
+      - name: Install dependencies
+        run: npm install
+
+      # 6. Générer les dossiers natifs (Prebuild)
+      - name: Expo Prebuild
+        run: npx expo prebuild --platform android
+
+      # 7. Donner les permissions d'exécution au script Gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x android/gradlew
+
+      # 8. Compiler l'APK en mode Release
+      - name: Build Android Release APK
+        run: |
+          cd android
+          ./gradlew assembleRelease
+
+      # 9. Récupérer l'APK généré pour pouvoir le télécharger
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
