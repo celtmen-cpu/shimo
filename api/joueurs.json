@@ -1,0 +1,26 @@
+{
+  "Staff": [
+    {
+        "nom": "Roi Donut",
+        "role: "CEO",
+        "twitter": "https://x.com/roidonut?s=11"
+    },
+    {
+        "nom": "SnipR",
+        "role": "CEO",
+        "twitter": "https://x.com/snipr2l?s=11"
+    },
+    {
+        "nom": Champion",
+        "role":"CO-CEO",
+        "twitter": "https://x.com/ytb_champion8?s=11"
+    },
+    {
+        "nom": "Nerock's",
+        "role": "Content Creator",
+        "twitter": "https://x.com/hvknerock?s=11"
+    },
+    {
+    },
+  ]
+}
