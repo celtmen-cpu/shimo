@@ -8,7 +8,7 @@ body {
   gap: 40px; /* Augmentation de l'espace entre les blocs */
 
   /* Fond rouge avec un léger dégradé pour donner du relief */
-  background: linear-gradient(135deg, #cc0000 0%, #800000 100%);
+  background: linear-gradient(135deg, #ff84dc 0%, #ff51ce 100%);
   font-family: Arial, sans-serif;
 }
 
@@ -55,7 +55,7 @@ button {
 
   /* Inversion des couleurs pour qu'il ressorte : texte rouge sur fond blanc */
   background: #ffffff;
-  color: #cc0000;
+  color: #ff51ce;
 
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
