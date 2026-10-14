@@ -1,69 +1,242 @@
+/* ===== Palette Halloween ===== */
+:root {
+  --nuit: #0b0612;
+  --violet: #2b0f45;
+  --citrouille: #ff7a18;
+  --citrouille-clair: #ffb347;
+  --citrouille-fonce: #c94a00;
+  --vert-poison: #9dff4f;
+  --lune: #fff4c9;
+}
+
+/* ===== Page ===== */
 body {
   margin: 0;
-  min-height: 100vh; /* Utilisation de min-height pour éviter les coupures */
+  min-height: 100vh;
+  padding: 40px 16px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 40px; /* Augmentation de l'espace entre les blocs */
+  gap: 40px;
 
-  /* Fond rouge avec un léger dégradé pour donner du relief */
-  background: linear-gradient(135deg, #ff84dc 0%, #ff51ce 100%);
-  font-family: Arial, sans-serif;
+  /* Ciel de nuit : lueur violette en haut, noir en bas */
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--violet) 0%, transparent 70%),
+    linear-gradient(180deg, #1a0b29 0%, var(--nuit) 100%);
+  background-attachment: fixed;
+  color: white;
+  font-family: 'Nunito', Arial, sans-serif;
 }
 
+/* ===== Cartes en verre "hanté" ===== */
 .glass {
-  /* Agrandissement majeur des boîtes */
-  width: 80%;
-  max-width: 800px; 
-  padding: 50px;
+  position: relative;
+  z-index: 1; /* au-dessus du décor */
+  width: 100%;
+  max-width: 800px;
+  padding: clamp(28px, 6vw, 50px);
+  box-sizing: border-box;
+  text-align: center;
 
-  /* Effet glassmorphic adapté pour le fond rouge */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: rgba(30, 10, 45, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
-  text-align: center;
-  box-sizing: border-box;
+  border: 1px solid rgba(255, 122, 24, 0.35);
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(255, 122, 24, 0.15),      /* halo orange */
+    inset 0 0 20px rgba(157, 255, 79, 0.05); /* reflet vert poison */
 }
 
+/* ===== Titre ===== */
 h1 {
-  color: white; /* Changement en blanc */
-  font-size: 4.5rem; /* Titre géant */
   margin: 0;
+  font-family: 'Creepster', cursive;
+  font-weight: normal;
+  font-size: clamp(2.8rem, 11vw, 5.5rem);
+  letter-spacing: 4px;
+  color: var(--citrouille);
+  text-shadow:
+    0 0 10px rgba(255, 122, 24, 0.8),
+    0 0 30px rgba(255, 122, 24, 0.5),
+    0 4px 0 var(--citrouille-fonce);
+  animation: flicker 4s infinite;
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  font-size: clamp(1.1rem, 4vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  color: var(--vert-poison);
+  text-shadow: 0 0 12px rgba(157, 255, 79, 0.6);
 }
 
 p {
   color: white;
-  font-size: 1.8rem; /* Texte plus grand */
+  font-size: clamp(1.1rem, 4vw, 1.8rem);
 }
 
+/* ===== Boutons citrouille ===== */
 button {
-  /* Bouton XXL */
-  padding: 25px 60px;
-  font-size: 2rem;
-  font-weight: bold;
-  
-  border: none;
-  border-radius: 15px;
+  padding: clamp(18px, 4vw, 25px) clamp(28px, 7vw, 60px);
+  max-width: 100%;
+  font-family: inherit;
+  font-size: clamp(1.2rem, 4.5vw, 2rem);
+  font-weight: 800;
+  color: #2a0d00;
 
-  /* Inversion des couleurs pour qu'il ressorte : texte rouge sur fond blanc */
-  background: #ffffff;
-  color: #ff51ce;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--citrouille-clair) 0%, var(--citrouille) 55%, var(--citrouille-fonce) 100%);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 122, 24, 0.4),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.2);
 
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Petit effet interactif au survol du gros bouton */
 button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05) rotate(-1deg);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(255, 122, 24, 0.8),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.2);
+  animation: wobble 0.5s ease;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--vert-poison);
+  outline-offset: 4px;
+}
+
+/* ===== Pied de page ===== */
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+footer a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: var(--vert-poison);
+  text-decoration: underline;
+}
+
+/* ===== Décor ===== */
+.decor {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none; /* ne bloque jamais les clics */
+}
+
+.moon {
+  position: absolute;
+  top: 6%;
+  right: 8%;
+  width: clamp(70px, 14vw, 140px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffbe8 0%, var(--lune) 50%, #e6c97a 100%);
+  box-shadow: 0 0 60px 15px rgba(255, 244, 201, 0.35);
+}
+
+.bat {
+  position: absolute;
+  left: 0;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  filter: brightness(0.3); /* chauves-souris en silhouette */
+  animation: fly linear infinite;
+}
+.bat-1 { top: 12%; animation-duration: 14s; }
+.bat-2 { top: 28%; animation-duration: 19s; animation-delay: -6s; font-size: clamp(1rem, 3vw, 1.8rem); }
+.bat-3 { top: 70%; animation-duration: 23s; animation-delay: -12s; }
+
+.ghost {
+  position: absolute;
+  bottom: 18%;
+  left: 6%;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  opacity: 0.7;
+  animation: float 5s ease-in-out infinite;
+}
+
+.pumpkin {
+  position: absolute;
+  bottom: 12px;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  filter: drop-shadow(0 0 15px rgba(255, 122, 24, 0.7));
+}
+.pumpkin-left  { left: 3%; }
+.pumpkin-right { right: 3%; transform: scaleX(-1); }
+
+.fog {
+  position: absolute;
+  bottom: 0;
+  left: -50%;
+  width: 200%;
+  height: 30vh;
+  background:
+    radial-gradient(ellipse at 25% 100%, rgba(200, 180, 255, 0.18), transparent 60%),
+    radial-gradient(ellipse at 75% 100%, rgba(157, 255, 79, 0.08), transparent 60%);
+  animation: drift 20s ease-in-out infinite alternate;
+}
+
+/* ===== Animations ===== */
+@keyframes flicker {
+  0%, 92%, 96%, 100% { opacity: 1; }
+  94% { opacity: 0.4; }
+  98% { opacity: 0.7; }
+}
+
+@keyframes wobble {
+  0%   { transform: scale(1.05) rotate(0deg); }
+  25%  { transform: scale(1.05) rotate(-3deg); }
+  50%  { transform: scale(1.05) rotate(3deg); }
+  75%  { transform: scale(1.05) rotate(-2deg); }
+  100% { transform: scale(1.05) rotate(-1deg); }
+}
+
+@keyframes fly {
+  0%   { transform: translate(-10vw, 0); }
+  25%  { transform: translate(25vw, -30px); }
+  50%  { transform: translate(55vw, 20px); }
+  75%  { transform: translate(85vw, -20px); }
+  100% { transform: translate(110vw, 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-20px); }
+}
+
+@keyframes drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(20%); }
+}
+
+/* Respecte les utilisateurs qui désactivent les animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
